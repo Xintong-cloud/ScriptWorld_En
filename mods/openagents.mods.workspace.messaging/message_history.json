@@ -1,0 +1,24 @@
+{
+  "QuickWorker0731_1767531285602_mb3yo532u": {
+    "event_name": "thread.channels.list",
+    "source_id": "QuickWorker0731",
+    "event_id": "QuickWorker0731_1767531285602_mb3yo532u",
+    "timestamp": 1767531285,
+    "source_type": "agent",
+    "destination_id": "mod:openagents.mods.workspace.messaging",
+    "relevant_mod": null,
+    "requires_response": false,
+    "response_to": null,
+    "thread_name": null,
+    "payload": {
+      "action": "list_channels",
+      "message_type": "channel_info"
+    },
+    "metadata": {},
+    "text_representation": null,
+    "visibility": "network",
+    "allowed_agents": null,
+    "secret": "aBfTndaYy4yLmLbbrxNQgO9C1pPBvHhaZGY1qP4jNCUoZJqI2J4LD4fl3V3fLEet",
+    "source_agent_group": "guest"
+  }
+}

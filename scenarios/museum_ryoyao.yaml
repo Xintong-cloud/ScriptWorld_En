@@ -1,0 +1,145 @@
+scenario_id: museum_ryoyao
+title: "Museum Nightmare: The Stolen Ruyao Cup"
+channels:
+  lobby: "general"
+  game: "ideas"
+defaults:
+  dm_agent_id: "dm"
+  model_name: "auto"
+basic_info:
+  script_name: Museum Nightmare: The Stolen Ruyao Cup
+  number_of_players: 4 players (supports 1-4 players; missing players will be replaced by other AI agents from openagents)
+  script_type: Ancient + Modern Museum + Mystery and Reasoning
+  reasoning_difficulty: Easy (The plot is simple, and the clues are clear)
+  game_duration: 30-40 minutes
+background: |
+  The ancient city museum recently hosted the "Song Dynasty Cultural Relics Special Exhibition," with its prized exhibit — the Song Dynasty Ruyao Celadon Cup (referred to as "Ruyao Cup") — attracting a large number of visitors.
+  On the last day of the exhibition, during the closing hours (17:00-18:00), the museum experienced a 5-minute power outage. When the power returned, the Ruyao Cup was missing from its display case.
+  After a preliminary investigation, only four people were present at the museum during the closing hours, all of whom are suspects: the head of security responsible for cultural relics protection, the dedicated tour guide for the Ruyao Cup, a restoration expert, and the last visitor to leave.
+  The police have temporarily sealed off the museum and require all four individuals to cooperate with the investigation to find the true thief of the Ruyao Cup.
+roles:
+  # Core modification: The player defaults to Zhao Gang (Suspect A), merging the attributes of both player and suspect_a
+  - id: player_1
+    display: "You (Zhao Gang)"
+    type: human
+    identity: 38 years old, Museum Head of Security (Suspect A)
+    description: You are one of the core suspects in the case, with a dual task — to hide your secret while identifying the true thief of the Ruyao Cup.
+    public_info:
+      - Responsible for daily security of the museum, patrols all exhibition halls during the closing hours; at the time of the incident, you were patrolling near the exhibition hall.
+      - Familiar with the museum's surveillance system, power supply lines, and emergency exits; you possess the backup key to the display case (must be registered for use).
+      - Calm and meticulous, but recently stressed due to your wife's serious illness and urgent medical expenses.
+    hidden_info:
+      - Three days before the incident, you secretly contacted an antique dealer to inquire about the price of the Ruyao Cup, but no transaction was made.
+      - During the power outage, you were at the entrance of the Song Dynasty exhibition hall and heard a "slight glass collision sound" from within, but hesitated to enter due to the blackout.
+      - Secret task: Conceal the fact that you contacted the antique dealer. If questioned by other characters, you must fabricate the excuse that "it was to lure out potential thieves."
+    interaction_scripts:
+      - When asked, "Where were you during the incident?": "I was patrolling near the exhibition hall when the power suddenly went out. It was pitch dark, and I didn’t dare to move. I stayed at the entrance of the Song Dynasty exhibition hall and heard a slight glass collision sound."
+      - When asked, "Did you contact an antique dealer?": "Nonsense! How could I do such a thing? I'm in charge of security! I contacted the antique dealer only to lure out potential thieves and protect the relics."
+      - When asked, "Did you lend the backup key to anyone?": "There is a record in the registration book. Only the guide Lin Xiaoyue borrowed it one hour before the incident, used it for 10 minutes, and returned it. No one else borrowed it."
+  # Other AI suspect roles (retaining original attributes, modifying interaction with "Player (Zhao Gang)")
+  - id: npc_1
+    display: "Lin Xiaoyue (Suspect B)"
+    type: ai
+    identity: 26 years old, Dedicated Tour Guide for Song Dynasty Relics
+    public_info:
+      - Responsible for giving tours in the Song Dynasty exhibition hall, knows the history, characteristics, and display case details of the Ruyao Cup.
+      - Should have left during the closing hours, but stayed behind in the nearby office to "organize tour notes."
+      - Passionate about Song Dynasty relics and has often stated in public, "The Ruyao Cup is a rare national treasure that must be well-protected."
+    hidden_info:
+      - Her grandfather was an antique dealer, and the family owns a "replica Ruyao Cup." She has been trying to swap it with the real one so that the fake would circulate as the genuine article.
+      - One hour before the incident, she borrowed the backup key from Zhao Gang (Player) under the pretext of "checking the display case seal," with a record showing 10 minutes of use.
+      - Secret task: Conceal the true purpose of borrowing the key, and fabricate the excuse that "it was to ensure the display case's safety and prevent damage to the relic."
+    interaction_scripts:
+      - When asked, "Why did you stay at the museum after closing hours?": "I needed to organize my tour notes. There were some details about the Ruyao Cup that I hadn't completed yet. I wanted to take advantage of the quiet after closing hours to finish it."
+      - When asked, "Why did you borrow the backup key?": "I was concerned that the display case seal might not be tight enough. If dust or air got in, it would damage the Ruyao Cup. That's why I borrowed the key from Zhao Gang to check it."
+      - When asked, "Do you have a replica Ruyao Cup?": "How could that be! I have always respected Song Dynasty relics, and I would never make a replica. I just want to protect the national treasure."
+  - id: npc_2
+    display: "Chen Mo (Suspect C)"
+    type: ai
+    identity: 45 years old, Cultural Relic Restorer
+    public_info:
+      - Responsible for the daily restoration of the museum’s relics. Skilled in restoration techniques and familiar with the preservation weaknesses of various relics.
+      - During the closing hours, was in the restoration room working on a Song Dynasty porcelain vase, approximately 50 meters away from the Song Dynasty exhibition hall.
+      - Reclusive and taciturn, communicates little with other staff members.
+    hidden_info:
+      - Had previously damaged a Qing Dynasty porcelain vase during a restoration job, which led to a disciplinary action from the museum. Feeling resentful, he planned to steal the Ruyao Cup as revenge.
+      - In the restoration room, he secretly kept a set of "miniature window-breaking tools," which could open the glass display case without damaging its overall structure.
+      - Secret task: Conceal the fact that he had a disciplinary record and the window-breaking tools. If discovered, he must claim that the tools were for emergency restoration of display cases.
+    interaction_scripts:
+      - When asked, "What were you doing during the incident?": "I was working in the restoration room, fixing a Song Dynasty porcelain vase. I never left the room, and I was far from the exhibition hall, so I didn’t hear anything unusual."
+      - When asked, "Are there window-breaking tools in the restoration room?": "Those tools are for emergency repairs of the display cases in case the glass breaks. They are not for stealing things."
+      - When asked, "Do you have any grievances with the museum?": "No, I just focus on my restoration work. Anything else is none of my business."
+  - id: npc_3
+    display: "Zhou Ming (Suspect D)"
+    type: ai
+    identity: 32 years old, The Last Visitor to Leave
+    public_info:
+      - A Song Dynasty relic enthusiast who specifically visited before closing to see the Ruyao Cup. He became the last visitor to leave because "he was taking photos" and was stopped by Zhao Gang (Player) for questioning.
+      - He carries a backpack containing a camera, notebook, and a bottle of mineral water.
+      - Claims to be a "pure admirer of relics" and has no motive for theft.
+    hidden_info:
+      - His real identity is a member of an overseas relic smuggling ring, and his purpose in visiting was to steal the Ruyao Cup. He took photos to document the display case’s location and surroundings.
+      - The "mineral water bottle" in his backpack is actually a modified "miniature jammer," capable of briefly disrupting the museum’s power system (the 5-minute blackout was his doing).
+      - Secret task: Conceal his smuggling identity and the jammer, disguising the jammer as a regular water bottle. If questioned, claim it’s "just leftover water."
+    interaction_scripts:
+      - When asked, "Why were you the last one to leave?": "I love the Ruyao Cup so much! I wanted to take a few more photos before I left, and I lost track of time. It wasn’t intentional that I stayed behind."
+      - When asked, "Why is the mineral water bottle in your backpack different?": "It's just a regular mineral water bottle. Maybe the brand is different, and the bottle is a bit stiffer, but there’s nothing special about it."
+      - When asked, "Are you involved in relic smuggling?": "Of course not! I'm just a regular relic enthusiast. How could I be involved in smuggling? Don't accuse me without evidence."
+clues:
+  - scene: Incident Scene - Song Dynasty Exhibition Hall
+    clue_list:
+      - id: clue1
+        description: A circular scratch, about 1 cm in diameter, near the bottom right corner of the display case glass. It can be felt by touch, with silver-white metal debris scattered around the scratch.
+        name: Circular Scratch + Metal Residue on Display Case Glass
+      - id: clue2
+        description: A torn yellow sticky note found on the ground beneath the display case. When pieced together, it reads "At the time of the blackout, act at the third quarter of the hour." The handwriting is sloppy, as if written hastily.
+        name: Torn Sticky Note
+      - id: clue3
+        description: The indicator light of the surveillance camera in the corner of the exhibition hall is off. Upon inspection, the power socket of the camera is loose, as if deliberately unplugged. After the blackout, the camera did not automatically power on.
+        name: Loose Power Socket of Surveillance Camera
+  - scene: Other Key Locations
+    clue_list:
+      - id: clue4
+        description: The registration book shows that Lin Xiaoyue borrowed the backup key to the display case one hour before the incident and used it for 10 minutes. No one else borrowed the key on the day of the incident. The last page of the book contains a faint pencil mark, resembling half of the character "Zhao."
+        name: Backup Key Registration Book
+        location: Head of Security’s Office (Your office)
+      - id: clue5
+        description: In the restoration room's tool cabinet, a set of "miniature window-breaking tools" is missing. The drawer shows signs of tampering, and a small note at the bottom of the drawer reads, "The glass thickness of the Song Dynasty exhibition case is 3 mm."
+        name: Restoration Room Tool Cabinet
+      - id: clue6
+        description: A camera, notebook, and an unopened bottle of mineral water are found in Zhou Ming's backpack. The water bottle is stiffer than regular ones, and the bottom has a small black button. When pressed, there is no visible response, but the side of the bottle has a tiny USB port.
+        name: Zhou Ming’s Backpack
+      - id: clue7
+        description: In Lin Xiaoyue's office drawer, there is a "replica Ruyao Cup." The color and patterns closely resemble the genuine article, except that the bottom lacks the Song Dynasty official kiln inscription. There is also a "tour guide notebook" with a sketch of the display case's structure, marking the location of the display case lock.
+        name: Lin Xiaoyue's Office Drawer
+reasoning_logic:
+  - Step 1: The "Circular Scratch + Metal Residue on the Display Case Glass" indicates that the tool used for the theft was a "miniature window-breaking tool," corresponding to the hidden information of restorer Chen Mo (who possesses such a tool).
+  - Step 2: The "Torn Sticky Note" with the phrase "act at the third quarter of the hour" and Zhou Ming’s modified mineral water bottle (the jammer) points to Zhou Ming as the one who caused the power outage, and his smuggling identity provides a motive for the crime.
+  - Step 3: Lin Xiaoyue borrowing the backup key and the "replica Ruyao Cup" in her office suggest she had a motive to swap the relic, but the circular scratch on the display case is not directly connected to her actions, thus ruling her out as the main perpetrator.
+  - Step 4: As Zhao Gang (Player), your "contact with the antique dealer" only serves as a potential motive without direct evidence of tools or the power outage, so you must clear your name and avoid being mistaken for the true culprit.
+  - Step 5: Key connection: Chen Mo’s window-breaking tool (the theft tool) + Zhou Ming’s jammer (the power outage device) + the sticky note’s "third quarter of the hour" (the time agreed upon by the two) leads to the conclusion that "Chen Mo and Zhou Ming partnered to steal the Ruyao Cup."
+endings:
+  - type: Perfect Ending
+    condition: Player (Zhao Gang) successfully hides their secret and identifies Chen Mo and Zhou Ming as the true culprits, submitting the clue combination (display case scratch + missing window-breaking tool in restoration room + Zhou Ming’s modified water bottle + torn sticky note).
+    description: |
+      You successfully hid the secret about contacting the antique dealer and reconstructed the crime process: Zhou Ming and Chen Mo had an agreement. Zhou Ming used the modified mineral water bottle to cause the power outage, while Chen Mo used the miniature window-breaking tool to open the display case and steal the Ruyao Cup.
+      The police, based on your clues, captured both culprits in the emergency exit and successfully recovered the national treasure. You cleared your name and fulfilled your security duties!
+  - type: Regular Ending (Successful concealment, partial identification)
+    condition: Player (Zhao Gang) successfully hides their secret but only identifies one of Chen Mo or Zhou Ming, without discovering the partnership.
+    description: |
+      You successfully hid your secret, but because you didn't find evidence of the partnership, the other culprit managed to escape with the Ruyao Cup.
+      The police later recovered the relic, but one of the culprits escaped. You cleared your name but did not fully solve the case.
+  - type: Regular Ending (Failure to conceal, successful identification)
+    condition: Player (Zhao Gang) fails to hide their contact with the antique dealer, but successfully identifies Chen Mo and Zhou Ming as the true culprits.
+    description: |
+      You were questioned about your contact with the antique dealer but ultimately submitted a complete set of clues and successfully identified the true culprits.
+      The police recovered the relic and investigated you, confirming that you were not involved in the theft, and gave you a verbal warning.
+  - type: Failed Ending (Failure to conceal, incorrect identification)
+    condition: Player (Zhao Gang) fails to hide their secret and wrongly accuses Lin Xiaoyue or another innocent person as the culprit.
+    description: |
+      You revealed your secret about contacting the antique dealer and wrongly accused someone else, allowing Chen Mo and Zhou Ming to escape.
+      Although the relic was later recovered, it was damaged, and due to "failure to cooperate in the investigation + private contact with the antique dealer," you were dismissed from the museum and will need to cooperate further with the police investigation.
+adaptation_instructions:
+  - Clue Presentation: All clues are presented as "textual descriptions." After clicking on a clue, the player can view the full text description without the need for image-text pairing, suitable for a purely textual narrative.
+  - Interaction Design: Player (Zhao Gang) can ask other AI suspects questions using "text inquiries" or respond to doubts using "text responses" (must follow their secret task). They can also choose to "investigate scenes" to trigger clue unlocking.
+  - AI Role Filling: If there are fewer than 4 participants, AI characters will actively ask questions or respond to doubts from the player (Zhao Gang), advancing the plot and avoiding any downtime.
