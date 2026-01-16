@@ -31,6 +31,7 @@ ScriptWorld is suitable for:
 ---
 
 ## 🎥Video Demonstration(Click the image to watch on Youtube 🔗)
+https://youtu.be/kjzcFEUG21w
 [![Demo Video](images/video.jpg)](https://youtu.be/kjzcFEUG21w)
 
 
